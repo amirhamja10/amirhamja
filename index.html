@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>পেমেন্ট ফর্ম</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; text-align: center; }
+    .card { background: white; max-width: 400px; margin: 30px auto; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 8px rgba(0,0,0,0.2); }
+    button { margin: 10px; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; font-size: 16px; }
+    .bkash { background: #e2136e; color: white; }
+    .nagad { background: #f7931e; color: white; }
+    .copy { background: #007bff; color: white; }
+    .submit { background: #28a745; color: white; width: 100%; }
+    input { width: 95%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>পেমেন্ট করুন</h2>
+    <button class="bkash">বিকাশ</button>
+    <button class="nagad">নগদ</button>
+    <p>নিচের নাম্বারে ১০০০ টাকা পাঠান:</p>
+    <h3 id="number">01402642783</h3>
+    <button class="copy" onclick="copyNumber()">নাম্বার কপি করুন</button>
+
+    <h3>লেনদেনের তথ্য দিন</h3>
+    <form id="paymentForm">
+      <input type="text" name="user_number" placeholder="আপনার নাম্বার" required>
+      <input type="text" name="trx_id" placeholder="ট্রানজেকশন আইডি" required>
+      <button type="submit" class="submit">সাবমিট</button>
+    </form>
+  </div>
+
+  <script>
+    // EmailJS initialization
+    (function(){
+      emailjs.init("m8V9A-gtcFxKnDBdh"); // তোমার Public Key
+    })();
+
+    // কপি ফাংশন
+    function copyNumber() {
+      var copyText = document.getElementById("number").innerText;
+      navigator.clipboard.writeText(copyText);
+      alert("নাম্বার কপি হয়েছে: " + copyText);
+    }
+
+    // ফর্ম সাবমিশন
+    document.getElementById("paymentForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      emailjs.sendForm("service_zyz27er", "template_07gauvb", this)
+      .then(function(response) {
+        alert("✅ তথ্য সফলভাবে পাঠানো হয়েছে!");
+      }, function(error) {
+        alert("❌ কিছু ভুল হয়েছে, আবার চেষ্টা করুন।");
+      });
+    });
+  </script>
+</body>
+</html>

